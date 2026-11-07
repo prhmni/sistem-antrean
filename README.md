@@ -1,23 +1,43 @@
-# 📢 Sistem Antrean Terpadu (Real-Time Smart Queue)
+# 🏥 Sistem Antrean Terpadu (Real-Time Smart Queue System)
 
-Aplikasi manajemen antrean layanan publik (*multi-client*) berbasis WebSocket untuk sinkronisasi waktu nyata (*real-time*) antara panel kontrol petugas dan layar monitor antrean publik, dilengkapi dengan sistem audio pengumuman otomatis.
+Aplikasi antrean publik *multi-client* berbasis web yang menghubungkan ruang pemeriksaan/layanan (dokter/petugas) dengan layar monitor publik secara waktu nyata (*real-time*). Dilengkapi dengan sintesis audio frekuensi nada bel (*chime*) dan pembaca nomor otomatis berbahasa Indonesia via *Web Speech API*.
 
-## 🚀 Fitur Utama
+---
 
-- **Layar Monitor Publik (`display.html`)**: Menampilkan nomor antrean aktif, nama poli/loket tujuan, riwayat antrean terakhir, jam digital, teks berjalan (*running text*), nada lonceng (*ding-dong*), dan panggilan suara otomatis Bahasa Indonesia.
-- **Panel Petugas / Dokter (`panel.html`)**: Pemilihan loket/poli, pemanggilan nomor berikutnya sekuensial, panggil ulang (*recall*), dan reset antrean.
-- **Sinkronisasi Real-Time**: Pembaruan status instan ke seluruh antarmuka menggunakan **Socket.io**.
+## 📌 Alur Kerja Sistem
 
-## 🛠️ Tech Stack
+1. **Panel Petugas (`/panel.html`)**: Petugas memilih loket/poli yang aktif, kemudian menekan tombol kontrol untuk memanggil nomor antrean berikutnya, memanggil ulang nomor yang sama, atau menyetel ulang nomor antrean.
+2. **Server Backend (`server.js`)**: Mengelola *state* antrean di memori, mencatat riwayat panggilan, dan menyiarkan data secara instan ke seluruh antarmuka yang terhubung menggunakan WebSocket.
+3. **Layar Monitor Publik (`/display.html`)**: Memperbarui nomor display besar, mencatat daftar histori, membunyikan lonceng dua nada (*ding-dong*), dan melafalkan nomor panggilan serta loket tujuan dalam Bahasa Indonesia.
 
-- **Backend**: Node.js, Express.js
-- **Komunikasi Real-Time**: Socket.io (WebSocket)
-- **Frontend**: HTML5, Tailwind CSS (CDN), Vanilla JavaScript
-- **Audio**: Web Audio API & Web Speech API
+---
 
-## 💻 Panduan Menjalankan
+## 🛠️ Tech Stack & Modul
 
-1. Kloning repositori:
-   ```bash
-   git clone [https://github.com/prhmni/sistem-antrean.git](https://github.com/prhmni/sistem-antrean.git)
-   cd sistem-antrean
+| Lapisan | Teknologi | Kegunaan |
+| :--- | :--- | :--- |
+| **Backend** | Node.js & Express.js | Menjalankan server HTTP dan melayani file antarmuka statis |
+| **Real-Time Engine** | Socket.io | Protokol WebSocket untuk pengiriman pesan instan antarperangkat |
+| **Frontend UI** | HTML5 & Tailwind CSS (CDN) | Tata letak layar monitor responsif dan panel kontrol petugas |
+| **Audio Synthesizer** | Web Audio API | Menghasilkan frekuensi nada bel *ding-dong* tanpa file audio eksternal |
+| **Voice Synthesis** | Web Speech API | Melafalkan pengumuman antrean otomatis berbahasa Indonesia |
+
+---
+
+## 📋 Prasyarat Sistem
+
+Pastikan perangkat komputer sudah terpasang perangkat lunak berikut:
+* **Node.js** (versi 16.x atau lebih baru)
+* **Git**
+* **Google Chrome** atau **Microsoft Edge** (diperlukan untuk kompatibilitas penuh Web Speech API)
+
+---
+
+## 🚀 Panduan Instalasi & Menjalankan Proyek
+
+Jalankan perintah berikut secara berurutan di terminal (PowerShell / Command Prompt):
+
+### 1. Kloning Repositori
+```bash
+git clone [https://github.com/prhmni/sistem-antrean.git](https://github.com/prhmni/sistem-antrean.git)
+cd sistem-antrean
